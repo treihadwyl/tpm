@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+/**
+ * Treihadwyl Package Manager
+ * Copyright © 2014 Matt Styles <matt@veryfizzyjelly.com>
+ * Licensed under the ISC license
+ * ---
+ *
+ * Checks that the `~/.tpm` folder is good to use and sets up config file or
+ * reports an error.
+ */
+
+var fs = require( 'fs' );
+
+    console.log( 'firing postinstall script' );
+
+    fs.Stats( '~/.tmp/', function( err, res ) {
+        if ( err ) {
+            throw new Error( 'Error running stats' );
+        }
+
+        if ( res.isDirectory ) {
+            console.log( 'warning: ~/.tmp/ already exists' );
+        }
+    });
