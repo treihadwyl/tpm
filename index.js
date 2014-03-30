@@ -62,10 +62,7 @@ function start() {
 
     tpm.parse( process.argv );
 
-    // Handle options
-    if ( tpm.core ) {
-        require( './lib/options/change-core' );
+    if ( process.argv.length < 3 ) {
+        tpm.help();
     }
-
-    tpm.help();
 }
