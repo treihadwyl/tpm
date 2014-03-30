@@ -17,7 +17,8 @@
     "chalk": "^0.4.0",
     "lodash-node": "^2.4.1",
     "es6-promise": "^0.1.1",
-    "shelljs": "^0.2.6"
+    "shelljs": "^0.2.6",
+    "promptly": "^0.2.0"
   },
   "devDependencies": {
     "gulp": "^3.6.0",
