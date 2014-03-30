@@ -9,16 +9,113 @@
  * reports an error.
  */
 
-var fs = require( 'fs' );
+var fs = require( 'fs' ),
+    path = require( 'path' ),
 
-    console.log( 'firing postinstall script' );
+    chalk = require( 'chalk' ),
+    Promise = require( 'es6-promise' ).Promise,
+    config = require( '../config.json' ),
+    logger = require( '../lib/utils/log' );
 
-    fs.Stats( '~/.tmp/', function( err, res ) {
+logger.logline();
+logger.log( chalk.underline( 'Treihadwyl Package Manager Installing' ) );
+logger.logline();
+
+fs.stat( path.join( process.env.HOME, config.installDir ), function( err, res ) {
+    if ( err ) {
+        new Error( 'Error running stats' );
+    }
+
+    if ( !res ) {
+        createConfigDir( createConfigFile );
+        return;
+    }
+
+    if ( res.isDirectory ) {
+        getConfig()
+            .then( onExistingConfig )
+            .catch( onFail );
+    }
+
+});
+
+/**
+ * Fired when the config already exists
+ */
+function onExistingConfig( res ) {
+    logger.log( 'using existing config' );
+    logger.log( 'Success', chalk.green( '✔' ) );
+    final();
+}
+
+/**
+ * Fired when ./tpm/ already exists but config.json isnt in there
+ */
+function onFail( err ) {
+    if ( err.code === 'ENOENT' ) {
+        logger.log( chalk.yellow( 'warning:' ),'~/.tpm/ already exists' );
+        logger.indent( 9 ).log( 'Strange things might occur' );
+        logger.indent( 9 ).log( 'Try manually specifying a config.json to use' );
+
+        final();
+    }
+
+    new Error( err );
+}
+
+/**
+ * Creates ~/.tpm/, usually followed by creating the config
+ */
+function createConfigDir( cb ) {
+    fs.mkdir( path.join( process.env.HOME, config.installDir ), function( err ) {
         if ( err ) {
-            throw new Error( 'Error running stats' );
+            new Error( 'Error creating ' + config.installDir );
+            return;
         }
 
-        if ( res.isDirectory ) {
-            console.log( 'warning: ~/.tmp/ already exists' );
-        }
+        cb( config );
     });
+}
+
+/**
+ * Creates a config file using obj as the json describing the config
+ */
+function createConfigFile( obj ) {
+    fs.writeFile( path.join( process.env.HOME, config.installDir, 'config.json' ), JSON.stringify( obj, null, 2 ), function( err ) {
+        if ( err ) {
+            new Error( 'Error writing config file' );
+            return;
+        }
+
+        logger.log( 'Success', chalk.green( '✔' ) );
+        final();
+    });
+}
+
+
+/**
+ * Returns a promise resolving to the json representation of the config file in the standard place
+ */
+function getConfig() {
+    return new Promise( function( resolve, reject ) {
+        fs.readFile( path.join( process.env.HOME, config.installDir, 'config.json' ), function( err, res ) {
+            if ( err ) {
+                reject( err );
+                return;
+            }
+
+            resolve( JSON.parse( res ) );
+        });
+
+    })
+}
+
+
+/**
+ * Adds a final line to proceedings.
+ * If called with `true` then will additionally bomb installation.
+ */
+function final( flag ) {
+    logger.logline();
+    process.exit( !!flag );
+}
