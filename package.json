@@ -7,13 +7,13 @@
     "tpm": "./index.js"
   },
   "scripts": {
-    "postinstall": "./bin/postinstall",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "./bin/postinstall"
   },
   "author": "Matt Styles <matt@veryfizzyjelly.com",
   "license": "ISC",
   "dependencies": {
     "commander": "^2.2.0",
-    "chalk": "^0.4.0"
+    "chalk": "^0.4.0",
+    "lodash-node": "^2.4.1"
   }
 }
