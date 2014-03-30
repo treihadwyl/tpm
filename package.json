@@ -1,6 +1,6 @@
 {
   "name": "Treihadwyl-Package-Manager",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Quick CLI for initialising and working with Treihadwyl modules",
   "main": "index.js",
   "bin": {
