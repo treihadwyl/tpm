@@ -9,7 +9,14 @@
  * and modules that make up Treihadwyl
  */
 
-var pkg = require( './package.json' );
+var path = require( 'path' ),
+
+    chalk = require( 'chalk' ),
+
+    pkg = require( './package.json' ),
+    defConf = require( './config.json' ),
+    logger = require( './lib/utils/log' ),
+    get = require( './lib/utils/promisify-fs' ).get;
 
 var tpm = module.exports = require( 'commander' );
 
@@ -24,11 +31,41 @@ tpm
 require( './lib/commands/link' );
 
 
-// Fire in to tpm
-tpm.parse(process.argv);
-
-
-// Handle options
-if ( tpm.core ) {
+// Handle core specification route here, before checking it is valid
+if ( process.argv[ 2 ] === '-c' || process.argv[ 2 ] === '--core' ) {
     require( './lib/options/change-core' );
+    return;
+}
+
+
+// Check config is ready to go
+get( path.join( process.env.HOME, defConf.installDir, 'config.json' ) )
+    .then( function( config ) {
+
+        if ( !config.coreDir ) {
+            logger.log( chalk.red( 'Error: Treihadwyl Core directory not specified' ) );
+            logger.log( 'Use', chalk.cyan( '-c' ), 'inside core directory or specify path' );
+            logger.logline();
+            logger.log( 'need', chalk.cyan( '--help' ) + '?' );
+            process.exit( 0 );
+        }
+
+        start();
+    })
+    .catch( function( err ) {
+        logger.log( chalk.red( 'Error retrieving config' ),  '-- does it exist?' );
+        process.exit(0);
+    })
+
+
+function start() {
+
+    tpm.parse( process.argv );
+
+    // Handle options
+    if ( tpm.core ) {
+        require( './lib/options/change-core' );
+    }
+
+    tpm.help();
 }
