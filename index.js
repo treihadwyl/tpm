@@ -29,6 +29,7 @@ tpm
 
 // Attach commands
 require( './lib/commands/link' );
+require( './lib/commands/create' );
 
 
 // Handle core specification route here, before checking it is valid
@@ -55,7 +56,7 @@ get( path.join( process.env.HOME, defConf.installDir, 'config.json' ) )
     .catch( function( err ) {
         logger.log( chalk.red( 'Error retrieving config' ),  '-- does it exist?' );
         process.exit(0);
-    })
+    });
 
 
 function start() {
