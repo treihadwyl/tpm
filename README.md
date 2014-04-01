@@ -74,7 +74,7 @@ tpm link -l <modulePath>
 ```
 
 Sugar method for symlinking modules into the core `config.modulePath` folder (
-this will usually be `modules` ).
+this will usually be `modules`).
 
 If specified with a `-p` path then it’ll link the project found at that path to
 the core, otherwise it’ll use the project found at the current directory.
@@ -88,6 +88,10 @@ tpm link -l node_modules
 
 will link the current project into `core/node_modules` if you’d prefer it to
 go in there.
+
+`tpm link` will create two links - the specified one and one that goes into the
+`node_modules` folder. This is to let `browserify` have a better time at finding
+dependencies.
 
 Run this from the project root to link it (or specify a project root directory),
 this is rubbish and is on the `todo` list.
