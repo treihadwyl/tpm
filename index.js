@@ -55,6 +55,7 @@ get( path.join( process.env.HOME, defConf.installDir, 'config.json' ) )
     })
     .catch( function( err ) {
         logger.log( chalk.red( 'Error retrieving config' ),  '-- does it exist?' );
+        logger.log( chalk.red( err ) );
         process.exit(0);
     });
 

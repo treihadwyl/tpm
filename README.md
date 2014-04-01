@@ -69,10 +69,25 @@ tpm link
 tpm link -p <path>
 ```
 
-Sugar method for symlinking modules into the core `node_modules` folder.
+```
+tpm link -l <modulePath>
+```
 
-If specified with a path then it’ll link the project found at that path to the
-core, otherwise it’ll use the project found at the current directory.
+Sugar method for symlinking modules into the core `config.modulePath` folder (
+this will usually be `modules` ).
+
+If specified with a `-p` path then it’ll link the project found at that path to
+the core, otherwise it’ll use the project found at the current directory.
+
+If specifed with a `-l` path then it’ll link into the path directory within core.
+e.g.
+
+```
+tpm link -l node_modules
+```
+
+will link the current project into `core/node_modules` if you’d prefer it to
+go in there.
 
 Run this from the project root to link it (or specify a project root directory),
 this is rubbish and is on the `todo` list.

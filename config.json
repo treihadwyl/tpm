@@ -1,5 +1,6 @@
 {
     "installDir": "/.tpm/",
     "coreDir": "",
-    "scaffoldURL": "git@github.com:treihadwyl/base-module.git"
+    "scaffoldURL": "git@github.com:treihadwyl/base-module.git",
+    "modulePath": "modules"
 }
