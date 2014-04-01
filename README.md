@@ -16,13 +16,32 @@ npm link
 
 ## API
 
-### tpm || tpm --help
+### help
 
 ```
 tpm
 ```
 
+```
+tpm --help
+```
+
 Shows the help
+
+### options
+
+#### debug
+
+```
+tpm -d
+```
+
+```
+tpm --debug
+```
+
+Runs in debug mode; usually this is akin to a verbose mode outputting more
+messages.
 
 ### tpm setCore
 
@@ -57,6 +76,17 @@ core, otherwise it’ll use the project found at the current directory.
 
 Run this from the project root to link it (or specify a project root directory),
 this is rubbish and is on the `todo` list.
+
+### tpm create
+
+```
+tpm create <path>
+```
+
+Scaffolds the [base module repository](https://github.com/treihadwyl/base-module)
+into the specified `<path>`.
+
+`<path>` is required.
 
 
 ## Todo
