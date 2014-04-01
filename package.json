@@ -1,6 +1,6 @@
 {
   "name": "Treihadwyl-Package-Manager",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Quick CLI for initialising and working with Treihadwyl modules",
   "main": "index.js",
   "repository": {
@@ -15,10 +15,12 @@
     "test": "gulp test"
   },
   "author": "Matt Styles <matt@veryfizzyjelly.com",
-  "licenses":[{
-    "type": "ISC",
-    "url": "https://github.com/treihadwyl/tpm/blob/master/LICENSE.md"
-  }],
+  "licenses": [
+    {
+      "type": "ISC",
+      "url": "https://github.com/treihadwyl/tpm/blob/master/LICENSE.md"
+    }
+  ],
   "dependencies": {
     "commander": "^2.2.0",
     "chalk": "^0.4.0",
