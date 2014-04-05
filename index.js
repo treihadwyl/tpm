@@ -30,6 +30,7 @@ tpm
 // Attach commands
 require( './lib/commands/link' );
 require( './lib/commands/create' );
+require( './lib/commands/register' );
 
 
 // Handle core specification route here, before checking it is valid
@@ -57,15 +58,6 @@ get( path.join( process.env.HOME, defConf.installDir, 'config.json' ) )
         logger.log( chalk.red( 'Error retrieving config' ),  '-- does it exist?' );
         logger.log( chalk.red( err ) );
         process.exit(0);
-    });
-
-require( './lib/utils/modules' ).load()
-    .then( function( res ) {
-        console.log( 'modules.json loaded' );
-        console.log( res );
-    })
-    .catch( function( err ) {
-        console.log( err );
     });
 
 
