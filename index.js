@@ -59,6 +59,15 @@ get( path.join( process.env.HOME, defConf.installDir, 'config.json' ) )
         process.exit(0);
     });
 
+require( './lib/utils/modules' ).load()
+    .then( function( res ) {
+        console.log( 'modules.json loaded' );
+        console.log( res );
+    })
+    .catch( function( err ) {
+        console.log( err );
+    });
+
 
 function start() {
 
